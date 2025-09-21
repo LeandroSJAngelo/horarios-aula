@@ -2,8 +2,6 @@
 # README.md
 
 ```markdown
-# School Management API
-
 API para gestão acadêmica baseada em **NestJS + PostgreSQL**, seguindo os princípios de **Clean Architecture**.
 O sistema permite consultar:
 
