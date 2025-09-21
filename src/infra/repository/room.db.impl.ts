@@ -20,9 +20,11 @@ export class RoomDBImpl implements RoomRepository {
       ORDER BY r.name, cs.day_of_week, cs.start_time;
     `);
 
-    return result.rows.map(r => {
+    const roomSc =  result.rows.map(r => {
       const status = r.start_time ? 'occupied' : 'available';
       return new Room(r.id, r.name, r.day_of_week, r.start_time, r.end_time, status);
     });
+
+    return roomSc;
   }
 }

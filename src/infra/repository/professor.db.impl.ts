@@ -22,6 +22,8 @@ export class ProfessorDBImpl implements ProfessorRepository {
       `,
     );
 
-    return result.rows.map(r => new Professor(r.id, r.name, parseFloat(r.total_hours)));
+    const pfHrs = result.rows.map(r => new Professor(r.id, r.name, parseFloat(r.total_hours)));
+
+    return pfHrs;
   }
 }
