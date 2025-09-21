@@ -10,18 +10,19 @@ export class RoomDBImpl implements RoomRepository {
   async getRoomSchedules(): Promise<Room[]> {
     const result = await this.db.query(`
       SELECT
-          r.id, r.name,
-          cs.day_of_week,
-          cs.start_time,
-          cs.end_time,
-          'ocupado' AS status
+        r.id,
+        r.name,
+        cs.day_of_week,
+        cs.start_time,
+        cs.end_time
       FROM room r
-      JOIN class_schedule cs ON r.id = cs.room_id
-      ORDER BY r.id, cs.day_of_week, cs.start_time;
+      LEFT JOIN class_schedule cs ON cs.room_id = r.id
+      ORDER BY r.name, cs.day_of_week, cs.start_time;
     `);
 
-    return result.rows.map(r =>
-      new Room(r.id, r.name, r.day_of_week, r.start_time, r.end_time, r.status)
-    );
+    return result.rows.map(r => {
+      const status = r.start_time ? 'occupied' : 'available';
+      return new Room(r.id, r.name, r.day_of_week, r.start_time, r.end_time, status);
+    });
   }
 }

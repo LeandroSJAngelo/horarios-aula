@@ -1,6 +1,8 @@
+import { Injectable } from "@nestjs/common";
 import { ProfessorUseCase } from "src/use-cases/professor.usecase";
 import { RoomUseCase } from "src/use-cases/room.usecase";
 
+@Injectable()
 export class SchedulerService {
   constructor(
     private readonly professorUseCase: ProfessorUseCase,
